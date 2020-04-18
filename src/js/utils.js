@@ -1,3 +1,4 @@
+// Line.ts
 export function lineFromTwoPoints(p1, p2) {
     if (p2[0] === p1[0]) {
         // line is x = N
@@ -9,10 +10,12 @@ export function lineFromTwoPoints(p1, p2) {
     }
 }
 
+// Vector constructor
 export function vectorFromTwoPoints(p1, p2) {
     return [ p2[0] - p1[0], p2[1] - p1[1] ];
 }
 
+// vector.js
 export function dot(v1, v2) {
     return v1.reduce((acc, v, i) => {
         return acc + v * v2[i];
@@ -25,6 +28,7 @@ export function distanceBetweenTwoPoints(p1, p2) {
     return Math.sqrt(w * w + h * h);
 }
 
+// Line.js
 export function calcLinesCollision(line1, line2) {
     /* cases:
         normal: m != null && m != 0
@@ -58,10 +62,12 @@ export function calcLinesCollision(line1, line2) {
     }
 }
 
+// Vector.js
 export function vectorEquals(p1, p2) {
     return p1[0] === p2[0] && p1[1] === p2[2];
 }
 
+// Line.js
 // line1 = { p1, p2 } -- line2 = { p3, p4}
 export function calcSegmentsCollision(p1, p2, p3, p4) {
     let segment1 = lineFromTwoPoints(p1, p2);
