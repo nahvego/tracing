@@ -5,7 +5,7 @@ import Vector from "./vector";
 import Line from "./line";
 import Circle from "./circle";
 
-const ANIM = false;
+const ANIM = true;
 
 window.addEventListener("load", function() {
 
@@ -41,7 +41,7 @@ function draw(time: number) {
     }
     prevTime = time;
 
-    // char_position = char_position.translate(char_speed.scale(deltaS));
+    char_position = char_position.translate(char_speed.scale(deltaS)).clamp(0, CANVAS_WIDTH, 0, CANVAS_HEIGHT);
 
 
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -58,6 +58,8 @@ function draw(time: number) {
     for (let figure of MAP) {
         figure.draw(ctx);
     }
+
+    ctx.strokeStyle = "#000";
 
     // draw "character"
     ctx.fillStyle = "#000";

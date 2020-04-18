@@ -17,7 +17,8 @@ export default class Circle implements Elem2D {
     draw(ctx: CanvasRenderingContext2D) {
         ctx.save();
 
-        ctx.strokeStyle = "#F00";
+        ctx.strokeStyle = "#00F";
+        ctx.beginPath();
         ctx.arc(this.center.x, this.center.y, this.r, 0, 2 * Math.PI);
         ctx.stroke();
 

@@ -31,15 +31,56 @@ export default class Point {
         }
     }
 
-    clamp(x: number | undefined, y: number | undefined) {
+    clampX(max: number): Point;
+    clampX(min: number, max: number): Point;
+    clampX(min: number, max?: number) {
+        let mn: number | null = min;
+        if (typeof(max) === "undefined") {
+            mn = null;
+            max = min;
+        }
+        return this.clamp(mn, max, null, null);
+    }
+
+    clampY(max: number): Point;
+    clampY(min: number, max: number): Point;
+    clampY(min: number, max?: number) {
+        let mn: number | null = min;
+        if (typeof(max) === "undefined") {
+            mn = null;
+            max = min;
+        }
+        return this.clamp(null, null, mn, max);
+    }
+
+    clamp(maxX: number | null, maxY: number | null): Point;
+    clamp(minX: number | null, maxX: number | null, minY: number | null, maxY: number | null): Point;
+    clamp(minX: number | null, maxX: number | null, minY?: number | null, maxY?: number | null) {
+        let mnX = minX;
+        let mxX = maxX;
+        let mnY = minY;
+        let mxY = maxY;
+
         let nx = this.x;
         let ny = this.y;
-        if (typeof(x) !== "undefined" && this.x > x) {
-            nx = x;
-        } 
-        if (typeof(y) !== "undefined" && this.y > y) {
-            ny = y;
-        } 
+
+        if (typeof(minY) === "undefined" && typeof(maxY) === "undefined") {
+            // if just minX and maxX are present, this is a just max clamp
+            mnX = null;
+            mnY = null;
+            mxX = minX;
+            mxY = maxX;
+        }
+        if (mnX !== null && nx < mnX) {
+            nx = mnX;
+        } else if (mxX !== null && nx > mxX) {
+            nx = mxX;
+        }
+        if (mnY !== null && ny < mnY!) {
+            ny = mnY!;
+        } else if (mxY !== null && ny > mxY!) {
+            ny = mxY!;
+        }
         return new Point(nx, ny);
     }
 

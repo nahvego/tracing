@@ -33,7 +33,7 @@ export default class Square implements Elem2D {
     draw(ctx: CanvasRenderingContext2D) {
         ctx.save();
 
-        ctx.strokeStyle = "#F00";
+        ctx.strokeStyle = "#0FF";
         ctx.strokeRect(this.origin.x, this.origin.y, this.width, this.height);
 
         ctx.restore();
