@@ -1,14 +1,16 @@
-import Elem2D from "./elem2d";
+import Elem2D from "./interfaces/ielem2d";
 import Point from "./point";
 import Line from "./line";
 import Vector from "./vector";
+import Geometry2D from "./geometry2d";
 
-export default class Circle implements Elem2D {
+export default class Circle extends Geometry2D implements Elem2D {
 
     center: Point;
     r: number;
 
     constructor(center: Point, r: number) {
+        super();
 
         this.center = center;
         this.r = r;

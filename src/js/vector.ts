@@ -58,6 +58,19 @@ export default class Vector {
         if (this.magnitude === 0) return NULL_VECTOR;
         return new Vector(this.v1 / this.magnitude, this.v2 / this.magnitude);
     }
+
+    // clamps given a magnitude
+    clamp(length: number) {
+        if (this.magnitude > length) {
+            return this.unit().scale(length);
+        } else {
+            return this;
+        }
+    }
+
+    add(vector: Vector) {
+        return new Vector(this.v1 + vector.v1, this.v2 + vector.v2);
+    }
 }
 
 const NULL_VECTOR = new Vector(0, 0);

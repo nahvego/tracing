@@ -1,9 +1,11 @@
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "./constants";
 import Square from "./square";
 // import Circle from "./circle";
 import Point from "./point";
 import Vector from "./vector";
 import Line from "./line";
 import Circle from "./circle";
+import Character from "./character";
 
 const ANIM = true;
 
@@ -11,21 +13,14 @@ window.addEventListener("load", function() {
 
 let canvas = document.getElementById("canvas") as HTMLCanvasElement;
 let ctx = canvas.getContext("2d")!;
-const CANVAS_WIDTH = 500;
-const CANVAS_HEIGHT = 500;
-const PI = Math.PI;
-const HALF_PI = Math.PI / 2; // xd
 
-const CHAR_SIZE = 5; // must be odd
-
-let char_position = new Point(150, 150);
-let char_speed = new Vector(5, 0); // speed is pixels/sec
 
 let prevTime = -1;
 
 const MAP = [
     new Square(new Point(200, 200), 100, 100),
     new Circle(new Point(100, 100), 50),
+    new Character(new Point(150, 150)),
 ];
 
 function init() {
@@ -34,14 +29,14 @@ function init() {
 
 function draw(time: number) {
     let delta = 0;
-    let deltaS = 0; // delta seconds
     if (prevTime > 0) {
         delta = time - prevTime;
-        deltaS = delta / 1000;
     }
     prevTime = time;
 
-    char_position = char_position.translate(char_speed.scale(deltaS)).clamp(0, CANVAS_WIDTH, 0, CANVAS_HEIGHT);
+    for (let object of MAP) {
+        object.logic(delta);
+    }
 
 
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -58,17 +53,8 @@ function draw(time: number) {
     for (let figure of MAP) {
         figure.draw(ctx);
     }
-
-    ctx.strokeStyle = "#000";
-
-    // draw "character"
-    ctx.fillStyle = "#000";
-    ctx.fillRect( char_position.x - (CHAR_SIZE - 1) / 2, char_position.y - (CHAR_SIZE - 1) / 2, CHAR_SIZE, CHAR_SIZE);
-
-    ctx.fillStyle = "#0FF";
-    ctx.fillRect(char_position.x, char_position.y, 1, 1);
     // raycast
-    raycast(char_position, 360, 200);
+    //raycast(char_position, 360, 200);
 
     if (ANIM) window.requestAnimationFrame(draw);
 }
@@ -84,7 +70,7 @@ function raycast(origin: Point, rayCount: number, raySize: number, firstVector?:
     ctx.lineWidth = 1;
     ctx.fillStyle = "rgba(100, 100, 100, 0.5)";
 
-    let angle = 2 * PI / rayCount;
+    let angle = 2 * Math.PI / rayCount;
 
     let firstEnd = null;
     let rayEnd = null;

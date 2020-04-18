@@ -1,8 +1,9 @@
-import Elem2D from "./elem2d";
+import Elem2D from "./interfaces/ielem2d";
 import Point from "./point";
 import Line from "./line";
+import Geometry2D from "./geometry2d";
 
-export default class Square implements Elem2D {
+export default class Square extends Geometry2D implements Elem2D {
 
     origin: Point;
     width: number;
@@ -15,6 +16,8 @@ export default class Square implements Elem2D {
     ll: Line; // left
 
     constructor(origin: Point, width: number, height: number) {
+        super();
+
         this.origin = origin
         this.width = width;
         this.height = height;
