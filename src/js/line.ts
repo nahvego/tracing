@@ -1,5 +1,6 @@
 import Point from "./point";
 import Vector from "./vector";
+import { MAX_ROUND_ERROR } from "./constants";
 
 const POINT_DELTA = 1;
 
@@ -14,7 +15,7 @@ export default class Line {
     constructor(p1: Point, p2: Point) {
         this.p1 = p1;
         this.p2 = p2;
-        if (p2.x === p1.x) {
+        if (Math.abs(p2.x - p1.x) < MAX_ROUND_ERROR) {
             // line is x = N
             this.m = null;
             this.n = p1.x;
@@ -76,14 +77,14 @@ export default class Line {
         let v1 = new Vector(this.p1, this.p2);
         let dotSegment1 = v1.dot(v1);
         let dotPoint1 = v1.dot(new Vector(this.p1, coll));
-        if (dotPoint1 === 0) {
-            // coll = p1
-            // Because of JS float aproximations (and vectorEquals not including a delta for float aproximation)
-            // we check here and just return p1 as the coll point
-            return this.p1;
-        } else if (dotPoint1 === dotSegment1) { // what if dotPoint1 ≈ dogSegment1? May return false negatives
-            return this.p2;
-        }
+        // if (dotPoint1 === 0) {
+        //     // coll = p1
+        //     // Because of JS float aproximations (and vectorEquals not including a delta for float aproximation)
+        //     // we check here and just return p1 as the coll point
+        //     return this.p1;
+        // } else if (dotPoint1 === dotSegment1) { // what if dotPoint1 ≈ dogSegment1? May return false negatives
+        //     return this.p2;
+        // }
         if (dotPoint1 < 0) return null; // does not belong to segment1, so can't be valid
         if (dotPoint1 > dotSegment1) return null; // does not belong to segment1, so coll is not valid
 
