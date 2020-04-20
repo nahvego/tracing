@@ -25,6 +25,11 @@ export default class Vector {
         // return [ p2[0] - p1[0], p2[1] - p1[1] ];
     }
 
+    // I don't know how to fit this into the constructor nicely
+    static fromRotation(size: number, rotation: number): Vector {
+        return new Vector(Math.cos(rotation), Math.sin(rotation)).scale(size);
+    }
+
     get magnitude() {
         if (!this._magnitude) {
             this._magnitude = Math.sqrt(this.v1 * this.v1 + this.v2 * this.v2);

@@ -7,6 +7,7 @@ import Vector from "./vector";
 import Line from "./line";
 import Circle from "./geometry/circle";
 import Character from "./character";
+import RegularPolygon from "./geometry/regularPolygon";
 
 const ANIM = true;
 
@@ -26,6 +27,7 @@ const CHAR = new Character(new Point(150, 150));
 const MAP = [
     new Square(new Point(200, 200), 100, 100),
     new Circle(new Point(100, 100), 50),
+    new RegularPolygon(new Point(300, 100), 6, 20, 0),
     CHAR,
 ];
 
