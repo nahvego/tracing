@@ -1,11 +1,11 @@
 import kbController from "./keyboardController";
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from "./constants";
-import Square from "./square";
+import Square from "./geometry/square";
 // import Circle from "./circle";
 import Point from "./point";
 import Vector from "./vector";
 import Line from "./line";
-import Circle from "./circle";
+import Circle from "./geometry/circle";
 import Character from "./character";
 
 const ANIM = true;

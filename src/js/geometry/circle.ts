@@ -1,7 +1,7 @@
-import Elem2D from "./interfaces/ielem2d";
-import Point from "./point";
-import Line from "./line";
-import Vector from "./vector";
+import Elem2D from "../interfaces/ielem2d";
+import Point from "../point";
+import Line from "../line";
+import Vector from "../vector";
 import Geometry2D from "./geometry2d";
 
 export default class Circle extends Geometry2D implements Elem2D {

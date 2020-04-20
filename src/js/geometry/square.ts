@@ -1,6 +1,6 @@
-import Elem2D from "./interfaces/ielem2d";
-import Point from "./point";
-import Line from "./line";
+import Elem2D from "../interfaces/ielem2d";
+import Point from "../point";
+import Line from "../line";
 import Geometry2D from "./geometry2d";
 
 export default class Square extends Geometry2D implements Elem2D {
