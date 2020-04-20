@@ -101,4 +101,8 @@ export default class Point {
 
         return points[indexOfLowest]; // point or null
     }
+
+    toString() {
+        return `(${this.x}, ${this.y})`;
+    }
 }

@@ -1,3 +1,4 @@
+import kbController from "./keyboardController";
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from "./constants";
 import Square from "./square";
 // import Circle from "./circle";
@@ -10,6 +11,9 @@ import Character from "./character";
 const ANIM = true;
 
 window.addEventListener("load", function() {
+console.debug("Init main");
+
+kbController.bind();
 
 let canvas = document.getElementById("canvas") as HTMLCanvasElement;
 let ctx = canvas.getContext("2d")!;
@@ -17,10 +21,12 @@ let ctx = canvas.getContext("2d")!;
 
 let prevTime = -1;
 
+const CHAR = new Character(new Point(150, 150));
+
 const MAP = [
     new Square(new Point(200, 200), 100, 100),
     new Circle(new Point(100, 100), 50),
-    new Character(new Point(150, 150)),
+    CHAR,
 ];
 
 function init() {
@@ -54,7 +60,7 @@ function draw(time: number) {
         figure.draw(ctx);
     }
     // raycast
-    //raycast(char_position, 360, 200);
+    raycast(CHAR.position, 360, 200);
 
     if (ANIM) window.requestAnimationFrame(draw);
 }
@@ -82,8 +88,9 @@ function raycast(origin: Point, rayCount: number, raySize: number, firstVector?:
 
         // collisions?
         let collidedDest: Nullable<Point> = null;
+        let collidedDistance = Infinity;
         for (let object of MAP) {
-            let collidedDistance = Infinity;
+            if (object === CHAR) continue;
             let coll = object.collidesWithLine(new Line(origin, dest));
             if (coll) {
                 // ¿Is the closest collision?

@@ -50,6 +50,10 @@ export default class Vector {
         // y2 = sin(β)·x1 + cos(β)·y1
     }
 
+    invert() {
+        return new Vector(-this.v1, -this.v2);
+    }
+
     scale(scalar: number) {
         return new Vector(this.v1 * scalar, this.v2 * scalar);
     }
@@ -60,9 +64,19 @@ export default class Vector {
     }
 
     // clamps given a magnitude
-    clamp(length: number) {
-        if (this.magnitude > length) {
-            return this.unit().scale(length);
+    clamp(min: number, max: number | null): Vector;
+    clamp(max: number): Vector;
+    clamp(min: number, max?: number | null) {
+        let lMin: number | null = min;
+        let lMax: number | null = max || null;
+        if (typeof(max) === "undefined") {
+            lMin = null;
+            lMax = min;
+        }
+        if (lMax !== null && this.magnitude > lMax) {
+            return this.unit().scale(lMax);
+        } else if (lMin !== null && this.magnitude < lMin) {
+            return this.unit().scale(lMin);
         } else {
             return this;
         }
@@ -71,6 +85,26 @@ export default class Vector {
     add(vector: Vector) {
         return new Vector(this.v1 + vector.v1, this.v2 + vector.v2);
     }
+
+    // TODO: use
+    // Projection of this over otherVector
+    projection(otherVector: Vector) {
+        return this.dot(otherVector) / otherVector.magnitude;
+    }
+
+    xComponent() {
+        return this.projection(X_VECTOR);
+    }
+
+    yComponent() {
+        return this.projection(Y_VECTOR);
+    }
+
+    toString() {
+        return `(${this.v1}, ${this.v2})`;
+    }
 }
 
 const NULL_VECTOR = new Vector(0, 0);
+const X_VECTOR = new Vector(1, 0);
+const Y_VECTOR = new Vector(0, 1);
