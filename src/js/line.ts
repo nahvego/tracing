@@ -55,7 +55,7 @@ export default class Line {
             let y = x * line1.m! + line1.n; // okay!
             return new Point(x, y);
         } else {
-            let x = (line.n - this.n) / this.m - line.m;
+            let x = (line.n - this.n) / (this.m - line.m);
             let y = x * this.m + this.n;
             return new Point(x, y);;
         }
